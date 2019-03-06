@@ -1,0 +1,20 @@
+{
+  "name": "netflix-clon",
+  "description": "Configuration options for Heroku Review Apps",
+  "env": {
+    "GIT_SSH_KEY": {
+      "required": true
+    },
+    "NODE_ENV": {
+      "required": true
+    },
+    "NPM_CONFIG_PRODUCTION": {
+      "required": true
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
