@@ -1,0 +1,13 @@
+{
+  "name": "liteflix",
+  "dependencies": {
+    "nuxt": "latest"
+  },
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "prod": "npm run build && npm run start",
+    "post-update": "yarn upgrade --latest"
+  }
+}
