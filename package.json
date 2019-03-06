@@ -5,9 +5,11 @@
   },
   "scripts": {
     "dev": "nuxt",
-    "build": "nuxt build",
+    "build-local": "nuxt build",
     "start": "nuxt start",
-    "prod": "npm run build && npm run start",
-    "post-update": "yarn upgrade --latest"
-  }
+    "build": "npm run build-local && npm run start",
+    "post-update": "yarn upgrade --latest",
+    "heroku-postbuild": "echo Skip build on Heroku"
+  },
+  "heroku-run-build-script": true
 }
