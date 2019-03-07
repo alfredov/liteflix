@@ -1,15 +1,14 @@
 <template>
   <div>
-    <img src="logo.png">
     <Nuxt />
   </div>
 </template>
 
-<style scoped>
-img {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
-}
+<style lang="scss">
+  body {
+    font-family: $system-font-family;
+    margin: 0;
+    background: $black;
+    color: $white;
+  }
 </style>

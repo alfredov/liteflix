@@ -6,5 +6,9 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ]
   },
+  modules: ['@nuxtjs/style-resources'],
+  styleResources: {
+    scss: ['./assets/css/colors.scss', './assets/css/typography.scss']
+  },
   serverMiddleware: ['~/api/index.js']
 }
