@@ -1,6 +1,9 @@
 {
   "name": "liteflix",
   "dependencies": {
+    "axios": "^0.18.0",
+    "express": "^4.16.4",
+    "lru-cache": "^5.1.1",
     "nuxt": "latest"
   },
   "scripts": {
