@@ -10,9 +10,9 @@
         </div>
         <div class="tile__content">
           <div class="tile__content__right_left">
-             <h3 class="tile__title">Black Mirror</h3>
+             <h3 class="tile__title">{{ item.title }}</h3>
             <div class="tile__description">98% Coincidencia +16 1h 30 min</div>
-            <div class="tile__category">Suspenso</div>
+            <div class="tile__category">{{ item.firstGenre }}</div>
           </div>
           <div class="tile__content__right">
             <img class="tile__icon" tabindex="0" role="button" aria-pressed="false" width="20" src="~/assets/img/like.svg" alt="play">

@@ -52,6 +52,7 @@ export function getMoviesByType(type, url) {
             overview,
             releaseDate: release_date,
             genres: genresWithName,
+            firstGenre: genresWithName[0].name,
             verticalImage: {
               original: `https://image.tmdb.org/t/p/original${poster_path}`,
               w500: `https://image.tmdb.org/t/p/w500${poster_path}`
