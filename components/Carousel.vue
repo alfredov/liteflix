@@ -1,10 +1,10 @@
 <template>
-  <div class="row__inner">
-    <div class="tile" v-for="(item, index) in items" :key="index">
+  <div :class="rowClassName">
+    <div class="tile" :class="classObject" v-for="(item, index) in items" :key="index">
       <div class="tile__media">
-        <img class="tile__img" :src="item.horizontalImage.w500" alt=""  />
+        <img class="tile__img" :class="classObject" :src="imageName(item)" alt="" />
       </div>
-      <div class="tile__details">
+      <div class="tile__details" :style="styleObject">
         <div>
           <img tabindex="0" role="button" aria-pressed="false" width="25" src="~/assets/img/play.svg" alt="play">
         </div>
@@ -29,27 +29,76 @@
 
 <script>
   export default {
-    props: ['items']
+    props: ['items', 'orientation'],
+    computed: {
+      rowClassName: function() {
+        return {
+          'row__innerV': this.orientation === 'vertical',
+          'row__innerH': this.orientation === 'horizontal'
+        }
+      },
+      classObject: function() {
+        return {
+          'tile-vertical-dim': this.orientation === 'vertical',
+          'tile-horizontal-dim': this.orientation === 'horizontal'
+        }
+      },
+      styleObject: function() {
+        return `height: ${this.orientation === 'vertical'? 400 : 124}px`
+      }
+    },
+    methods: {
+      imageName(item) {
+        return (this.orientation === 'vertical') ? item.verticalImage.w500: item.horizontalImage.w500
+      }
+    }
   }
 </script>
 
 <style scoped lang="scss">
-  
-  .row__inner {
+  $verticalWidth: 200px;
+  $verticalHeight: 400px;
+
+  $horizontalWidth: 204px;
+  $horizontalHeight: 124px;
+
+  .tile-horizontal-dim {
+    width: $horizontalWidth;
+    height: $horizontalHeight;
+  }
+
+  .tile-vertical-dim {
+    width: $verticalWidth;
+    height: $verticalHeight;
+  }
+
+  // Body Text
+	%row_properties {
     display: flex;
     overflow-x: auto;
     transition: 450ms transform;
-    /* font-size: 0; */
+    white-space: nowrap;
+    margin: 70.3125px 0;
+    padding-bottom: 10px;    
+    display: flex;
+    overflow-x: auto;
+    transition: 450ms transform;
     white-space: nowrap;
     margin: 70.3125px 0;
     padding-bottom: 10px;
+	}
+
+  .row__innerV {
+    @extend %row_properties;
+  }
+
+  .row__innerH {
+    @extend %row_properties;
   }
 
   .tile {
     position: relative;
     display: inline-block;
-    width: 204px;
-    height: 124px;
     margin-right: 5px;
     font-size: 20px;
     cursor: pointer;
@@ -58,13 +107,10 @@
   }
 
   .tile__img {
-    width: 204px;
-    height: 124px;
     object-fit: cover;
   }
 
   .tile__details {
-    height: 129px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -122,6 +168,8 @@
   }
 
   .tile__content__right_left {
+    width: 150px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
   }
@@ -137,20 +185,37 @@
     font-weight: lighter;
   }
   @include desktop {
-    .row__inner {
+    .row__innerV {
       overflow: unset;
     }
 
-    .row__inner:hover {
+    .row__innerH {
+      overflow: unset;
+    }
+
+    .row__innerV:hover {
       transform: translate3d(-62.5px, 0, 0);
     }
 
-    .row__inner:hover .tile:hover {
+    .row__innerH:hover {
+      transform: translate3d(-62.5px, 0, 0);
+    }
+
+    .row__innerV:hover .tile:hover {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+
+    .row__innerH:hover .tile:hover {
       transform: scale(1.8);
       opacity: 1;
     }
 
-    .tile:hover ~ .tile {
+    .tile-vertical-dim:hover ~ .tile {
+      transform: translate3d(40px, 0, 0);
+    }
+
+    .tile-horizontal-dim:hover ~ .tile {
       transform: translate3d(163px, 0, 0);
     }
   }

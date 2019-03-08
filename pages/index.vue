@@ -1,10 +1,11 @@
 <template>
   <div class="container">
     <h1>Welcome!</h1>
+    <Carousel :items="upComingMovies" orientation="horizontal" />
+    <Carousel :items="upComingMovies" orientation="vertical" />
     <ol>
       <li v-for="(movie, index) in upComingMovies" :key="index">{{ movie.title }}</li>
     </ol>
-    <Carousel :items="upComingMovies"></Carousel>
   </div>
 </template>
 
