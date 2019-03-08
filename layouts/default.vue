@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="default-container">
     <Nuxt />
   </div>
 </template>
@@ -10,5 +10,9 @@
     margin: 0;
     background: $black;
     color: $white;
+  }
+
+  .default-container {
+    padding-left: 5%;
   }
 </style>

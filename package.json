@@ -9,7 +9,7 @@
     "nuxt": "latest"
   },
   "scripts": {
-    "dev": "nuxt",
+    "dev": "HOST=0.0.0.0 nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "post-update": "yarn upgrade --latest",

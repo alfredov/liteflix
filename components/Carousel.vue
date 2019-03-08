@@ -5,8 +5,22 @@
         <img class="tile__img" :src="item.horizontalImage.w500" alt=""  />
       </div>
       <div class="tile__details">
-        <div class="tile__title">
-          Top Gear
+        <div>
+          <img tabindex="0" role="button" aria-pressed="false" width="25" src="~/assets/img/play.svg" alt="play">
+        </div>
+        <div class="tile__content">
+          <div class="tile__content__right_left">
+             <h3 class="tile__title">Black Mirror</h3>
+            <div class="tile__description">98% Coincidencia +16 1h 30 min</div>
+            <div class="tile__category">Suspenso</div>
+          </div>
+          <div class="tile__content__right">
+            <img class="tile__icon" tabindex="0" role="button" aria-pressed="false" width="20" src="~/assets/img/like.svg" alt="play">
+            <img class="tile__icon" tabindex="0" role="button" aria-pressed="false" width="20" src="~/assets/img/add-list.svg" alt="play">
+          </div>
+        </div>
+        <div class="tile__arrow">
+          <img class="tile__icon" tabindex="0" role="button" aria-pressed="false" width="20" src="~/assets/img/arrow-down.svg" alt="play">
         </div>
       </div>
     </div>
@@ -19,10 +33,13 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  
   .row__inner {
+    display: flex;
+    overflow-x: auto;
     transition: 450ms transform;
-    font-size: 0;
+    /* font-size: 0; */
     white-space: nowrap;
     margin: 70.3125px 0;
     padding-bottom: 10px;
@@ -52,6 +69,7 @@
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: flex-end;
+    padding: 0 12px;
 
     position: absolute;
     bottom: 0;
@@ -81,20 +99,59 @@
     opacity: 1;
   }
 
+  .tile__arrow {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .tile__content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .tile__content__right {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  .tile__icon {
+    margin-bottom: 5px;
+  }
+
+  .tile__content__right_left {
+    display: flex;
+    flex-direction: column;
+  }
+
   .tile__title {
-    padding-bottom: 2em;
+    margin: 0;
+    font-size: 15px;
+    font-weight: 900;
   }
 
-  .row__inner:hover {
-    transform: translate3d(-62.5px, 0, 0);
+  .tile__description, .tile__category {
+    font-size: 9px;
+    font-weight: lighter;
   }
+  @include desktop {
+    .row__inner {
+      overflow: unset;
+    }
 
-  .row__inner:hover .tile:hover {
-    transform: scale(1.8);
-    opacity: 1;
-  }
+    .row__inner:hover {
+      transform: translate3d(-62.5px, 0, 0);
+    }
 
-  .tile:hover ~ .tile {
-    transform: translate3d(163px, 0, 0);
+    .row__inner:hover .tile:hover {
+      transform: scale(1.8);
+      opacity: 1;
+    }
+
+    .tile:hover ~ .tile {
+      transform: translate3d(163px, 0, 0);
+    }
   }
 </style>

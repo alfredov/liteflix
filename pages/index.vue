@@ -28,7 +28,11 @@
   }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
+  .container {
+    overflow: hidden;
+  }
+
   h1 {
      @include heading-3($white);
   }
