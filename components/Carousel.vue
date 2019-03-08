@@ -2,7 +2,7 @@
   <div class="row__inner">
     <div class="tile" v-for="(item, index) in items" :key="index">
       <div class="tile__media">
-        <img class="tile__img" :src="item.horizontalImage.w500" alt=""  />
+        <img class="tile__img" :src="item.verticalImage.w500" alt=""  />
       </div>
       <div class="tile__details">
         <div>
@@ -48,8 +48,8 @@
   .tile {
     position: relative;
     display: inline-block;
-    width: 204px;
-    height: 124px;
+    width: 200px;
+    height: 400px;
     margin-right: 5px;
     font-size: 20px;
     cursor: pointer;
@@ -58,13 +58,13 @@
   }
 
   .tile__img {
-    width: 204px;
-    height: 124px;
+    width: 200px;
+    height: 400px;
     object-fit: cover;
   }
 
   .tile__details {
-    height: 129px;
+    height: 400px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -148,12 +148,12 @@
     }
 
     .row__inner:hover .tile:hover {
-      transform: scale(1.8);
+      transform: scale(1.2);
       opacity: 1;
     }
 
     .tile:hover ~ .tile {
-      transform: translate3d(163px, 0, 0);
+      transform: translate3d(40px, 0, 0);
     }
   }
 </style>
