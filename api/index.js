@@ -5,12 +5,12 @@ const app = express()
 
 app.get('/movies', async (req, res) => {
   const movies = await getAllMovies()
-  res.send(movies)
+  res.json(movies)
 })
 
 app.get('/genres', async (req, res) => {
   const genres = await getGenres()
-  res.send(genres)
+  res.json(genres)
 })
 
 export default {

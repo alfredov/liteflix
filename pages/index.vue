@@ -1,9 +1,32 @@
 <template>
   <div class="container">
     <h1>Welcome!</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus iusto nesciunt praesentium quo, hic distinctio maiores id in, consequuntur assumenda non explicabo tempora facilis corrupti? Nesciunt labore modi deleniti officiis.</p>
+    <ol>
+      <li v-for="(movie, index) in upComingMovies" :key="index">{{ movie.title }}</li>
+    </ol>
+    <Carousel :items="upComingMovies"></Carousel>
   </div>
 </template>
+
+<script>
+  import { mapGetters } from 'vuex'
+  import Carousel from '~/components/Carousel.vue'
+
+  export default {
+    async fetch({ store }) {
+      await store.dispatch('getMovies')
+    },
+    computed: {
+      ...mapGetters({
+        movies: 'movies',
+        upComingMovies: 'upComingMovies'
+      })
+    },
+    components: {
+      Carousel
+    }
+  }
+</script>
 
 <style lang="scss">
   h1 {
