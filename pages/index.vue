@@ -1,13 +1,10 @@
 <template>
   <div class="container">
     <h1>Welcome!</h1>
-    <Carousel :items="upComingMovies" orientation="horizontal" />
-    <Carousel :items="topRatedMovies" orientation="horizontal" />
-    <Carousel :items="popularMovies" orientation="vertical" />
-    <Carousel :items="dramaMovies" orientation="horizontal" />
-    <ol>
-      <li v-for="(movie, index) in upComingMovies" :key="index">{{ movie.title }}</li>
-    </ol>
+    <Carousel :items="upComingMovies" orientation="horizontal" title="Próximamente" />
+    <Carousel :items="topRatedMovies" orientation="horizontal" title="Mejores Rankeadas" />
+    <Carousel :items="popularMovies" orientation="vertical" title="POPURALES DE NETFLIX" />
+    <Carousel :items="dramaMovies" orientation="horizontal" title="Drama" />
   </div>
 </template>
 
@@ -40,7 +37,7 @@
   }
 
   h1 {
-     @include heading-3($white);
+     @include heading-1($white);
   }
 
   p {

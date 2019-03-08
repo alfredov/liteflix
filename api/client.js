@@ -66,10 +66,7 @@ export function getMoviesByType(type, url) {
         }
       )
     })
-    .catch(error => {
-      console.log('## Error:', error)
-      return []
-    })
+    .catch(() => [])
 }
 
 export function getAllMovies() {
@@ -89,6 +86,7 @@ export function getAllMovies() {
           ...response[0],
           ...response[1],
           ...response[2],
+          ...response[3],
           ...response[4]
         ]
         cache.set('movies', movies)

@@ -17,9 +17,10 @@ $system-font-family: 'Montserrat', sans-serif;
   }
 
   @mixin heading-3($color: $white) {
-    font-size: 30px;
-    line-height: 43px;
+    font-size: 20px;
+    line-height: 20px;
 		font-weight: bold;
+		margin-bottom: 14px;
 		color: $color;
   }
 

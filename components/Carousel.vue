@@ -1,26 +1,31 @@
 <template>
-  <div :class="rowClassName">
-    <div class="tile" :class="classObject" v-for="(item, index) in items" :key="index">
-      <div class="tile__media">
-        <img class="tile__img" :class="classObject" :src="imageName(item)" alt="" />
-      </div>
-      <div class="tile__details" :style="styleObject">
-        <div>
-          <img tabindex="0" role="button" aria-pressed="false" width="25" src="~/assets/img/play.svg" alt="play">
-        </div>
-        <div class="tile__content">
-          <div class="tile__content__right_left">
-             <h3 class="tile__title">{{ item.title }}</h3>
-            <div class="tile__description">98% Coincidencia +16 1h 30 min</div>
-            <div class="tile__category">{{ item.firstGenre }}</div>
+  <div>
+    <h3>{{ title }}</h3>
+    <div>
+      <div :class="rowClassName">
+        <div class="tile" :class="classObject" v-for="(item, index) in items" :key="index">
+          <div class="tile__media">
+            <img class="tile__img" :class="classObject" :src="imageName(item)" alt="" />
           </div>
-          <div class="tile__content__right">
-            <img class="tile__icon" tabindex="0" role="button" aria-pressed="false" width="20" src="~/assets/img/like.svg" alt="play">
-            <img class="tile__icon" tabindex="0" role="button" aria-pressed="false" width="20" src="~/assets/img/add-list.svg" alt="play">
+          <div class="tile__details" :style="styleObject">
+            <div>
+              <img tabindex="0" role="button" aria-pressed="false" width="25" src="~/assets/img/play.svg" alt="play">
+            </div>
+            <div class="tile__content">
+              <div class="tile__content__right_left">
+                <h3 class="tile__title">{{ item.title }}</h3>
+                <div class="tile__description">98% Coincidencia +16 1h 30 min</div>
+                <div class="tile__category">{{ item.firstGenre }}</div>
+              </div>
+              <div class="tile__content__right">
+                <img class="tile__icon" tabindex="0" role="button" aria-pressed="false" width="20" src="~/assets/img/like.svg" alt="play">
+                <img class="tile__icon" tabindex="0" role="button" aria-pressed="false" width="20" src="~/assets/img/add-list.svg" alt="play">
+              </div>
+            </div>
+            <div class="tile__arrow">
+              <img class="tile__icon" tabindex="0" role="button" aria-pressed="false" width="20" src="~/assets/img/arrow-down.svg" alt="play">
+            </div>
           </div>
-        </div>
-        <div class="tile__arrow">
-          <img class="tile__icon" tabindex="0" role="button" aria-pressed="false" width="20" src="~/assets/img/arrow-down.svg" alt="play">
         </div>
       </div>
     </div>
@@ -29,7 +34,7 @@
 
 <script>
   export default {
-    props: ['items', 'orientation'],
+    props: ['items', 'orientation', 'title'],
     computed: {
       rowClassName: function() {
         return {
@@ -44,7 +49,7 @@
         }
       },
       styleObject: function() {
-        return `height: ${this.orientation === 'vertical'? 400 : 124}px`
+        return `height: ${this.orientation === 'vertical'? 405 : 129}px`
       }
     },
     methods: {
@@ -56,11 +61,26 @@
 </script>
 
 <style scoped lang="scss">
+  // row control
+  .row-control {
+    position: absolute;
+    top: 0;
+    height: 124px;
+    width: 52px;
+    right: 0;
+    z-index: 1;
+    background-color: rgba(0,0,0,0.7);
+  }
+
   $verticalWidth: 200px;
   $verticalHeight: 400px;
 
   $horizontalWidth: 204px;
   $horizontalHeight: 124px;
+
+  h3 {
+    @include heading-3
+  }
 
   .tile-horizontal-dim {
     width: $horizontalWidth;
@@ -72,19 +92,17 @@
     height: $verticalHeight;
   }
 
-  // Body Text
 	%row_properties {
     display: flex;
     overflow-x: auto;
     transition: 450ms transform;
     white-space: nowrap;
-    margin: 70.3125px 0;
     padding-bottom: 10px;    
     display: flex;
     overflow-x: auto;
     transition: 450ms transform;
     white-space: nowrap;
-    margin: 70.3125px 0;
+    margin-bottom: 70px;
     padding-bottom: 10px;
 	}
 
