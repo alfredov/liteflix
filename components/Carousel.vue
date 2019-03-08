@@ -122,6 +122,8 @@
   }
 
   .tile__content__right_left {
+    width: 150px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
   }
