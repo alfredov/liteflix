@@ -1,5 +1,12 @@
+import {
+  upcomingType,
+  popularType,
+  dramaType,
+  topRatedType
+} from '../utils/constants'
+
 export const state = () => ({
-  list: [{ title: 'movie1' }, { title: 'movie2' }]
+  list: []
 })
 
 export const getters = {
@@ -7,7 +14,16 @@ export const getters = {
     return state.list
   },
   upComingMovies(state) {
-    return state.list.slice(1, 15)
+    return state.list.filter(item => item.type === upcomingType)
+  },
+  popularMovies(state) {
+    return state.list.filter(item => item.type === popularType)
+  },
+  dramaMovies(state) {
+    return state.list.filter(item => item.type === dramaType)
+  },
+  topRatedMovies(state) {
+    return state.list.filter(item => item.type === topRatedType)
   }
 }
 

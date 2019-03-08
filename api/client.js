@@ -46,13 +46,14 @@ export function getMoviesByType(type, url) {
           genre_ids
         }) => {
           const genresWithName = getGenresWithNames(genre_ids, genres)
+          const genre = genresWithName[0] || {}
           return {
             type,
             title,
             overview,
             releaseDate: release_date,
             genres: genresWithName,
-            firstGenre: genresWithName[0].name,
+            firstGenre: genre.name || '',
             verticalImage: {
               original: `https://image.tmdb.org/t/p/original${poster_path}`,
               w500: `https://image.tmdb.org/t/p/w500${poster_path}`
@@ -65,7 +66,10 @@ export function getMoviesByType(type, url) {
         }
       )
     })
-    .catch(() => [])
+    .catch(error => {
+      console.log('## Error:', error)
+      return []
+    })
 }
 
 export function getAllMovies() {
