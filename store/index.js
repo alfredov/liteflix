@@ -2,8 +2,10 @@ import {
   upcomingType,
   popularType,
   dramaType,
-  topRatedType
+  topRatedType,
+  nowPlayingType
 } from '../utils/constants'
+import { filterMoviesByType, sortMoviesByReleaseDate } from '../utils'
 
 export const state = () => ({
   list: []
@@ -13,17 +15,22 @@ export const getters = {
   movies(state) {
     return state.list
   },
+  nowPlayingMovies(state) {
+    return sortMoviesByReleaseDate(
+      filterMoviesByType(state.list, nowPlayingType)
+    )
+  },
   upComingMovies(state) {
-    return state.list.filter(item => item.type === upcomingType)
+    return sortMoviesByReleaseDate(filterMoviesByType(state.list, upcomingType))
   },
   popularMovies(state) {
-    return state.list.filter(item => item.type === popularType)
+    return filterMoviesByType(state.list, popularType)
   },
   dramaMovies(state) {
-    return state.list.filter(item => item.type === dramaType)
+    return filterMoviesByType(state.list, dramaType)
   },
   topRatedMovies(state) {
-    return state.list.filter(item => item.type === topRatedType)
+    return filterMoviesByType(state.list, topRatedType)
   }
 }
 

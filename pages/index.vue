@@ -22,7 +22,8 @@
         upComingMovies: 'upComingMovies',
         popularMovies: 'popularMovies',
         dramaMovies: 'dramaMovies',
-        topRatedMovies: 'topRatedMovies'
+        topRatedMovies: 'topRatedMovies',
+        nowPlayingMovies: 'nowPlayingMovies'
       })
     },
     components: {
