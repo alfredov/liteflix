@@ -15,10 +15,11 @@ export const getters = {
   movies(state) {
     return state.list
   },
-  nowPlayingMovies(state) {
-    return sortMoviesByReleaseDate(
+  nowPlayingMovie(state) {
+    const firstMovie = sortMoviesByReleaseDate(
       filterMoviesByType(state.list, nowPlayingType)
-    )
+    )[0]
+    return firstMovie || {}
   },
   upComingMovies(state) {
     return sortMoviesByReleaseDate(filterMoviesByType(state.list, upcomingType))

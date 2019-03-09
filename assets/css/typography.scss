@@ -3,6 +3,8 @@ $system-font-family: 'Montserrat', sans-serif;
 
 // Headings
 @mixin heading-1($color: $white) {
+		margin: 0;
+		font-family: 'Roboto Slab', serif;
     font-size: 80px;
     line-height: 86px;
 		font-weight: bold;

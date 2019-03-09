@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <h3>{{ title }}</h3>
     <div>
       <div :class="rowClassName">
@@ -9,7 +9,7 @@
           </div>
           <div class="tile__details" :style="styleObject">
             <div>
-              <img tabindex="0" role="button" aria-pressed="false" width="25" src="~/assets/img/play.svg" alt="play">
+              <img tabindex="0" role="button" aria-pressed="false" width="25" src="~/assets/img/play-round.svg" alt="play">
             </div>
             <div class="tile__content">
               <div class="tile__content__right_left">
@@ -18,8 +18,8 @@
                 <div class="tile__category">{{ item.firstGenre }}</div>
               </div>
               <div class="tile__content__right">
-                <img class="tile__icon" tabindex="0" role="button" aria-pressed="false" width="20" src="~/assets/img/like.svg" alt="play">
-                <img class="tile__icon" tabindex="0" role="button" aria-pressed="false" width="20" src="~/assets/img/add-list.svg" alt="play">
+                <img class="tile__icon" tabindex="0" role="button" aria-pressed="false" width="20" src="~/assets/img/like-round.svg" alt="play">
+                <img class="tile__icon" tabindex="0" role="button" aria-pressed="false" width="20" src="~/assets/img/add-list-round.svg" alt="play">
               </div>
             </div>
             <div class="tile__arrow">
@@ -61,7 +61,16 @@
 </script>
 
 <style scoped lang="scss">
-  // row control
+  $verticalWidth: 200px;
+  $verticalHeight: 400px;
+
+  $horizontalWidth: 204px;
+  $horizontalHeight: 124px;
+
+  .wrapper {
+    padding-left: 5%;
+  }
+  
   .row-control {
     position: absolute;
     top: 0;
@@ -72,11 +81,6 @@
     background-color: rgba(0,0,0,0.7);
   }
 
-  $verticalWidth: 200px;
-  $verticalHeight: 400px;
-
-  $horizontalWidth: 204px;
-  $horizontalHeight: 124px;
 
   h3 {
     @include heading-3

@@ -11,8 +11,4 @@
     background: $black;
     color: $white;
   }
-
-  .default-container {
-    padding-left: 5%;
-  }
 </style>
