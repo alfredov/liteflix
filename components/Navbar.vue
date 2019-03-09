@@ -25,15 +25,39 @@
       </div>
     </nav>
     <div class="search">
-      <img  class="search-icon" tabindex="0" role="button" aria-pressed="false" width="30" src="~/assets/img/search-icon.svg" alt="search">
+      <img  class="search-icon" tabindex="0" role="button" aria-pressed="false" width="20" src="~/assets/img/search-icon.svg" alt="search">
       <div class="profile">
-        PROFILE
+        <ul class="navigation-list profile-list">
+          <li class="navigation-list-item"><a class="list-item-link link-active" href="#">Niños</a></li>
+          <li class="navigation-list-item">
+            <a class="list-item-link" href="#">
+              <img tabindex="0" role="button" aria-pressed="false" width="20" src="~/assets/img/bell.svg" alt="bell">
+            </a>
+          </li>
+          <li class="navigation-list-item">
+            <a tabindex="0" role="button" aria-pressed="false" class="list-item-link profile-arrow" href="#">
+              <img width="25" src="~/assets/img/user.svg" alt="user">
+              <img width="15" src="~/assets/img/arrow-down.svg" alt="arrow">
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
+  .profile-arrow {
+    display: flex;
+    width: 50px;
+    justify-content: space-between;
+  }
+
+  .profile-list {
+    display: flex;
+    align-items: center;
+  }
+
   .add-button {
     background: #FF0000;
     width: 40px;
