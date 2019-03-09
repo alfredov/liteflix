@@ -18,7 +18,7 @@ export const getters = {
   nowPlayingMovie(state) {
     const firstMovie = sortMoviesByReleaseDate(
       filterMoviesByType(state.list, nowPlayingType)
-    )[0]
+    )[3]
     return firstMovie || {}
   },
   upComingMovies(state) {
