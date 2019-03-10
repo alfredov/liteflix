@@ -30,5 +30,6 @@ export default {
     redirectError: {
       404: '/notfound'
     }
-  }
+  },
+  plugins: ['~/plugins/modal']
 }

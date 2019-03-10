@@ -20,7 +20,7 @@
           </div>
         </li>
       </ul>
-      <div class="add-button" tabindex="0" role="button" aria-pressed="false">
+      <div @click="showModal" class="add-button" tabindex="0" role="button" aria-pressed="false">
         <img width="18" src="~/assets/img/add-list.svg" alt="add item">
       </div>
     </nav>
@@ -43,10 +43,118 @@
         </ul>
       </div>
     </div>
+    <modal name="hello-world" :clickToClose="false" :classes="['box-global-modal', 'v--modal']">
+      <div class="box-modal">
+        <span @click="closeModal" tabindex="0" role="button" aria-pressed="false" class="box-close-icon">x</span>
+        <div class="box-upload-container">
+          <a class="box-upload-link" href="#">
+            <img width="15" src="~/assets/img/clip.svg" alt="arrow">
+            Agregar archivo
+          </a>
+          o arrastrarlo y soltarlo aqui
+        </div>
+        <div class="box-form">
+          <label class="box-form-input" for="">
+            <span class="box-form-label">NOMBRE DE LA PELICULA</span>            
+            <input class="box-form-input-value " type="text" />
+          </label>
+          <label class="box-form-input" for="">
+            <span class="box-form-label">CATEGORIA</span>
+            <select class="box-form-select" name="" id="">
+              <option value="">Animacion</option>
+              <option value="">Accion</option>
+            </select>
+          </label>
+          
+        </div>
+        <button class="box-button">Subir pelicula</button>
+      </div>
+    </modal>
   </div>
 </template>
 
+<script>
+  export default {
+    methods: {
+      showModal() {
+        this.$modal.show('hello-world')
+      },
+      closeModal() {
+        this.$modal.hide('hello-world')
+      }
+    }
+  }
+</script>
+
 <style scoped lang="scss">
+  .box-close-icon {
+    color: black;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: .4em;
+    cursor: pointer;
+  }
+  .box-upload-link {
+    color: #0076FF;
+    text-decoration: none;
+  }
+  .box-modal {
+    padding: 30px 20px;
+    text-align: center;
+  }
+
+  .box-upload-container {
+    color: #9B9B9B;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px black dashed;
+  }
+
+  .box-form {
+    text-align: left;
+    color: black;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .box-form-input {
+    display: flex;
+    flex-direction: column;
+    width: 270px;
+
+  }
+
+  .box-form-input-value {
+    border: none;
+    border-bottom: 1.4px #000 solid;
+    height: 20px;
+  }
+
+  .box-form-label {
+    color: #9B9B9B;
+    font-weight: normal;
+    font-size: 16px;
+  }
+
+  .box-form-select {
+    height: 30px;
+  }
+
+  .box-button {
+    height: 60px;
+    width: 280px;
+    background: #000;
+    color: white;
+    font-size: 16px;
+    font-weight: normal;
+    border-radius: 35px
+  }
   .profile-arrow {
     display: flex;
     width: 50px;
