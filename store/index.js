@@ -8,12 +8,16 @@ import {
 import { filterMoviesByType, sortMoviesByReleaseDate } from '../utils'
 
 export const state = () => ({
-  list: []
+  list: [],
+  genres: []
 })
 
 export const getters = {
   movies(state) {
     return state.list
+  },
+  genres(state) {
+    return state.genres
   },
   nowPlayingMovie(state) {
     const firstMovie = sortMoviesByReleaseDate(
@@ -36,21 +40,45 @@ export const getters = {
 }
 
 export const mutations = {
-  set(state, movies) {
+  setMovies(state, movies) {
     state.list = movies
   },
-  add(state, { title }) {
-    state.list.push({ title })
+  setGenres(state, genres) {
+    state.genres = genres
+  },
+  addUpcomingMovie(state, { title, genre, image }) {
+    const newMovie = {
+      title,
+      type: upcomingType,
+      firstGenre: genre,
+      releaseDate: '2019-03-30',
+      horizontalImage: {
+        w500: image
+      }
+    }
+
+    const movies = JSON.parse(localStorage.movies || '{}')
+
+    if (movies && movies.length) {
+      movies.push(newMovie)
+      localStorage.movies = JSON.stringify(movies)
+    } else {
+      localStorage.movies = JSON.stringify([newMovie])
+    }
+
+    state.list.push(newMovie)
   }
 }
 
 export const actions = {
   async getMovies({ commit }) {
     try {
-      const movies = await this.$axios.$get('/movies')
-      commit('set', movies)
+      const { movies, allGenres } = await this.$axios.$get('/movies')
+      commit('setMovies', movies)
+      commit('setGenres', allGenres)
     } catch {
-      commit('set', [])
+      commit('setMovies', [])
+      commit('setGenres', [])
     }
   }
 }

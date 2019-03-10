@@ -3,7 +3,32 @@
     <h3>{{ title }}</h3>
     <div>
       <div :class="rowClassName">
-        <div class="tile" :class="classObject" v-for="(item, index) in items" :key="index">
+        <div class="tile" :class="classObject" v-for="(item, index) in cachedItems" :key="`${index}-v1`">
+          <div class="tile__media">
+            <img class="tile__img" :class="classObject" :src="imageName(item)" alt="" />
+          </div>
+          <div class="tile__details" :style="styleObject">
+            <div>
+              <img tabindex="0" role="button" aria-pressed="false" width="25" src="~/assets/img/play-round.svg" alt="play">
+            </div>
+            <div class="tile__content">
+              <div class="tile__content__right_left">
+                <h3 class="tile__title">{{ item.title }}</h3>
+                <div class="tile__description">98% Coincidencia +16 1h 30 min</div>
+                <div class="tile__category">{{ item.firstGenre }}</div>
+              </div>
+              <div class="tile__content__right">
+                <img class="tile__icon" tabindex="0" role="button" aria-pressed="false" width="20" src="~/assets/img/like-round.svg" alt="play">
+                <img class="tile__icon" tabindex="0" role="button" aria-pressed="false" width="20" src="~/assets/img/add-list-round.svg" alt="play">
+              </div>
+            </div>
+            <div class="tile__arrow">
+              <img class="tile__icon" tabindex="0" role="button" aria-pressed="false" width="20" src="~/assets/img/arrow-down.svg" alt="play">
+            </div>
+          </div>
+        </div>
+
+        <div class="tile" :class="classObject" v-for="(item, index) in items" :key="`${index}-v2`">
           <div class="tile__media">
             <img class="tile__img" :class="classObject" :src="imageName(item)" alt="" />
           </div>
@@ -34,7 +59,7 @@
 
 <script>
   export default {
-    props: ['items', 'orientation', 'title'],
+    props: ['items', 'orientation', 'title', 'cachedItems'],
     computed: {
       rowClassName: function() {
         return {

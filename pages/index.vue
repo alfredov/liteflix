@@ -7,7 +7,7 @@
       :overview="nowPlayingMovie.overview"
     />
     <div class="container">
-      <Carousel :items="upComingMovies" orientation="horizontal" title="Próximamente" />
+      <Carousel :items="upComingMovies" :cachedItems="cachedItems" orientation="horizontal" title="Próximamente" />
       <Carousel :items="topRatedMovies" orientation="horizontal" title="Mejores Rankeadas" />
       <Carousel :items="popularMovies" orientation="vertical" title="POPURALES DE NETFLIX" />
       <Carousel :items="dramaMovies" orientation="horizontal" title="Drama" />
@@ -24,9 +24,12 @@
     async fetch({ store }) {
       await store.dispatch('getMovies')
     },
+    data() {
+      return { cachedItems: [] }
+    },
     computed: {
       ...mapGetters({
-        movies: 'movies',
+        genres: 'genres',
         upComingMovies: 'upComingMovies',
         popularMovies: 'popularMovies',
         dramaMovies: 'dramaMovies',
@@ -37,6 +40,10 @@
     components: {
       Carousel,
       Hero
+    },
+    mounted() {
+      const movies = JSON.parse(localStorage.movies || '[]')
+      this.cachedItems = movies
     }
   }
 </script>

@@ -72,7 +72,10 @@ export function getMoviesByType(type, url) {
 export function getAllMovies() {
   const moviesCache = cache.get('movies')
   if (moviesCache) {
-    return moviesCache
+    return {
+      movies: moviesCache,
+      allGenres: cache.get('genres') || []
+    }
   } else {
     return Promise.all([
       getMoviesByType(nowPlayingType, extraData[nowPlayingType].url),
@@ -90,7 +93,10 @@ export function getAllMovies() {
           ...response[4]
         ]
         cache.set('movies', movies)
-        return movies
+        return {
+          movies,
+          allGenres: cache.get('genres') || []
+        }
       })
       .catch(() => [])
   }
