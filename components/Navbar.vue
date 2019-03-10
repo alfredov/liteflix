@@ -1,10 +1,10 @@
 <template>
   <div class="header">
     <span class="menu">
-      <img  tabindex="0" role="button" aria-pressed="false" width="30" src="~/assets/img/menu-icon.svg" alt="menu">
+      <HamburgerMenu />
     </span>
     <a href="#" class="logo">
-      <img  tabindex="0" role="button" aria-pressed="false" width="95" src="~/assets/img/liteflix-icon.svg" alt="logo">
+      <img tabindex="0" role="button" aria-pressed="false" width="95" src="~/assets/img/liteflix-icon.svg" alt="logo">
     </a>
     <nav class="navigation">
       <ul class="navigation-list">
@@ -49,6 +49,7 @@
 
 <script>
   import Modal from '~/components/Modal'
+  import HamburgerMenu from '~/components/HamburgerMenu'
 
   export default {
     methods: {
@@ -57,7 +58,8 @@
       }
     },
     components: {
-      Modal
+      Modal,
+      HamburgerMenu
     }
   }
 </script>
@@ -119,10 +121,6 @@
     justify-content: space-between;
   }
 
-  .menu {
-    display: block;
-  }
-
   .navigation {
     display: none;
   }
@@ -132,10 +130,6 @@
   }
 
   @include desktop {
-    .menu {
-      display: none;
-    }
-
     .navigation {
       display: flex;
       align-items: center;
@@ -154,5 +148,5 @@
       right: 0;
       display: flex;
     }
-  }
+  }  
 </style>
