@@ -46,6 +46,14 @@ export function getImage(file) {
   })
 }
 
+const desktopWidth = '1024px'
+export function viewportIsRunningInDesktop() {
+  if (process.browser) {
+    return window.matchMedia(`(min-width: ${desktopWidth})`).matches
+  }
+  return false
+}
+
 export default {
   upload
 }
