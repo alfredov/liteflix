@@ -22,7 +22,7 @@ export const getters = {
   nowPlayingMovie(state) {
     const firstMovie = sortMoviesByReleaseDate(
       filterMoviesByType(state.list, nowPlayingType)
-    )[16]
+    )[0]
     return firstMovie || {}
   },
   upComingMovies(state) {

@@ -172,12 +172,14 @@
 
     .movie-content-copy {
       text-align: left;
-      width: 380px;
+      min-width: 380px;
+      max-width: 700px;
     }
 
     h1 {
       font-size: 100px;
       margin-top: 20px;
+      line-height: 1.1em;
     }
 
     .subtitle {
