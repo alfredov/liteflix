@@ -1,12 +1,12 @@
 <template>
   <modal name="modal-form" :clickToClose="false" :classes="['box-global-modal', 'v--modal']">
-    <div class="box-modal">
+    <div v-if="!formSuccess" class="box-modal">
       <span @click="closeModal" tabindex="0" role="button" aria-pressed="false" class="box-close-icon">x</span>
       <ProgressBar v-if="isSaving" :interval="interval" />
-      <ProgressBar @clear="reset" v-if="isSuccess" :interval="interval" message="100% Uploaded" linkMessage="Change file" />
-      <ProgressBar @clear="reset" v-if="isFailed" :interval="interval" :message="uploadError" linkMessage="Try again" />
-      <div ref="dropArea" id="drop-area" v-if="isInitial" class="box-upload-container">
-        <form class="form" enctype="multipart/form-data" novalidate v-if="isInitial">
+      <ProgressBar @clear="reset" v-if="isSuccess" :interval="interval" message="100% Cargado" />
+      <ProgressBar :wasCancelled="true" @clear="reset" v-if="isFailed" :interval="interval" :message="uploadError" linkMessage="Reintentar" />
+      <div v-if="isInitial" ref="dropArea" id="drop-area" class="box-upload-container">
+        <form class="form" enctype="multipart/form-data" novalidate>
           <input
             ref="inputFile"
             type="file"
@@ -17,13 +17,13 @@
             accept="image/*"
             class="input-file"
           />
-          <p v-if="isInitial">
+          <div v-if="isInitial">
             <a @click="chooFile" class="box-upload-link" href="#">
               <img width="15" src="~/assets/img/clip.svg" alt="arrow">
               Agregar archivo
             </a>
             o arrastrarlo y soltarlo aqui
-          </p>
+          </div>
         </form>
       </div>
       <div class="box-form">
@@ -47,6 +47,17 @@
         Subir pelicula
       </button>
     </div>
+    <div v-if="formSuccess" class="box-modal-success">
+      <span @click="closeModal" tabindex="0" role="button" aria-pressed="false" class="box-close-icon">x</span>
+      <img class="menu-content-logo" width="95" src="~/assets/img/liteflix-icon.svg" alt="logo" />
+      <div class="box-modal-content">
+        <span class="box-modal-title">Felicitaciones!</span>
+        <div>
+          <strong>{{ name }}</strong> fue correctamente subido a la categoria <strong>{{ category }}</strong>
+        </div>
+      </div>
+      <button @click="closeModal" class="button-medium-size box-button">Cerrar</button>
+    </div>
   </modal>
 </template>
 
@@ -67,7 +78,8 @@
         uploadError: null,
         currentStatus: null,
         uploadFieldName: 'photos',
-        isButtonDisabled: false
+        isButtonDisabled: false,
+        formSuccess: false
       }
     },
     computed: {
@@ -105,11 +117,7 @@
               image: this.uploadedFiles[0].url
             })
 
-            this.name = null
-            this.category = null
-            this.isButtonDisabled = false
-            this.reset()
-            this.$modal.hide('modal-form')
+            this.formSuccess = true
           })
         }
       },
@@ -121,6 +129,10 @@
         this.currentStatus = STATUS_INITIAL
         this.uploadedFiles = []
         this.uploadError = null
+        this.formSuccess = false
+        this.name = null
+        this.category = null
+        this.isButtonDisabled = false
       },
       save(formData) {
         this.currentStatus = STATUS_SAVING
@@ -159,6 +171,22 @@
 </script>
 
 <style scoped>
+  .box-modal-title {
+    font-size: 26px;
+    margin-bottom: .3em;
+    display: block;
+  }
+  .box-modal-content {
+    margin: 30px 0;
+    width: 500px;
+    font-size: 20px;
+    line-height: 28px;
+  }
+  .box-modal-success {
+    height: 100%;
+    background: #7ED321;
+    padding: 25px;
+  }
   .button-disabled {
     background: #979797;
     opacity: .4;
@@ -194,6 +222,7 @@
     color: #0076FF;
     text-decoration: none;
   }
+
   .box-modal {
     padding: 30px 20px;
     text-align: center;
@@ -253,5 +282,8 @@
     font-size: 16px;
     font-weight: normal;
     border-radius: 35px
+  }
+  .button-medium-size {
+    width: 192px;
   }
 </style>

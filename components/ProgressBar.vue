@@ -1,8 +1,13 @@
 <template>
   <div class="wrapper">
-    <span class="loading-text">{{ loadingMessage }}</span>
+    <span class="loading-text">
+      <span class="loading-text-error" v-if="wasCancelled">Error!</span>
+      {{ loadingMessage }}
+      </span>
     <progress ref="progress" value="0" max="100"></progress>
-    <div @click="clearProgress" v-if="message" tabindex="0" role="button" class="link-message">{{ linkMessage }}</div>
+    <div class="message-box">
+      <div @click="clearProgress" v-if="message && linkMessage" tabindex="0" role="button" class="link-message">{{ linkMessage }}</div>
+    </div>
   </div>
 </template>
 
@@ -20,17 +25,18 @@
     },
     computed: {
       loadingMessage() {
-        return this.message ? this.message :`Cargando ${this.value} %`
+        return this.wasCancelled ? this.message :`Cargando ${this.value} %`
       }
     },
     props: {
       interval: Number,
       message: String,
-      linkMessage: String
+      linkMessage: String,
+      wasCancelled: Boolean
     },
     mounted() {
       let tick = setInterval(() => {
-        if (this.message) {
+        if (this.wasCancelled) {
           this.$refs.progress.value = 0
           clearInterval(tick)
         } else {
@@ -89,5 +95,13 @@
 
   .loading-text {
     font-size: 15px;
+  }
+
+  .loading-text-error {
+    font-weight: bold;
+  }
+
+  .message-box {
+    width: 100%;
   }
 </style>
