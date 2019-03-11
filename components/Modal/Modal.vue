@@ -2,8 +2,11 @@
   <modal name="modal-form" :clickToClose="false" :classes="['box-global-modal', 'v--modal']">
     <div class="box-modal">
       <span @click="closeModal" tabindex="0" role="button" aria-pressed="false" class="box-close-icon">x</span>
-      <div ref="dropArea" id="drop-area" class="box-upload-container">
-        <form class="form" enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
+      <ProgressBar v-if="isSaving" :interval="interval" />
+      <ProgressBar @clear="reset" v-if="isSuccess" :interval="interval" message="100% Uploaded" linkMessage="Change file" />
+      <ProgressBar @clear="reset" v-if="isFailed" :interval="interval" :message="uploadError" linkMessage="Try again" />
+      <div ref="dropArea" id="drop-area" v-if="isInitial" class="box-upload-container">
+        <form class="form" enctype="multipart/form-data" novalidate v-if="isInitial">
           <input
             ref="inputFile"
             type="file"
@@ -21,25 +24,7 @@
             </a>
             o arrastrarlo y soltarlo aqui
           </p>
-          <p v-if="isSaving">
-            Uploading {{ fileCount }} files...
-          </p>
         </form>
-        <!--SUCCESS-->
-        <div v-if="isSuccess">
-          <h2>Uploaded {{ uploadedFiles.length }} file(s) successfully.</h2>
-          <p>
-            <a class="box-upload-link" href="javascript:void(0)" @click="reset()">Upload again</a>
-          </p>
-        </div>
-        <!--FAILED-->
-        <div v-if="isFailed">
-          <h2>Uploaded failed.</h2>
-          <p>
-            <a class="box-upload-link" href="javascript:void(0)" @click="reset()">Try again</a>
-          </p>
-          <pre>{{ uploadError }}</pre>
-        </div>
       </div>
       <div class="box-form">
         <label class="box-form-input" for="">
@@ -68,8 +53,10 @@
 <script>
   import { mapGetters } from 'vuex'
   import { upload, wait, delay } from './utils'
+  import ProgressBar from '~/components/ProgressBar.vue'
 
-  const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
+  const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3
+  const delayValue = 1500
 
   export default {
     data() {
@@ -88,16 +75,19 @@
         genres: 'genres'
       }),
       isInitial() {
-        return this.currentStatus === STATUS_INITIAL;
+        return this.currentStatus === STATUS_INITIAL
       },
       isSaving() {
-        return this.currentStatus === STATUS_SAVING;
+        return this.currentStatus === STATUS_SAVING
       },
       isSuccess() {
-        return this.currentStatus === STATUS_SUCCESS;
+        return this.currentStatus === STATUS_SUCCESS
       },
       isFailed() {
-        return this.currentStatus === STATUS_FAILED;
+        return this.currentStatus === STATUS_FAILED
+      },
+      interval() {
+        return delayValue / 100;
       }
     },
     methods: {
@@ -106,9 +96,9 @@
       },
       addMovie() {
         if (this.uploadedFiles.length > 0 && this.name && this.category) {
-          this.isButtonDisabled = true;
+          this.isButtonDisabled = true
 
-          delay(1500).then(() => {
+          delay(delayValue).then(() => {
             this.$store.commit('addUpcomingMovie', {
               title: this.name,
               genre: this.category,
@@ -117,49 +107,53 @@
 
             this.name = null
             this.category = null
-            this.isButtonDisabled = false;
+            this.isButtonDisabled = false
+            this.reset()
             this.$modal.hide('modal-form')
           })
         }
       },
       closeModal() {
+        this.reset()
         this.$modal.hide('modal-form')
       },
       reset() {
-        this.currentStatus = STATUS_INITIAL;
-        this.uploadedFiles = [];
-        this.uploadError = null;
+        this.currentStatus = STATUS_INITIAL
+        this.uploadedFiles = []
+        this.uploadError = null
       },
       save(formData) {
-        this.currentStatus = STATUS_SAVING;
-
+        this.currentStatus = STATUS_SAVING
         upload(formData)
-          .then(wait(1500))
+          .then(wait(delayValue))
           .then(x => {
-            this.uploadedFiles = [].concat(x);
-            this.currentStatus = STATUS_SUCCESS;
+            this.uploadedFiles = [].concat(x)
+            this.currentStatus = STATUS_SUCCESS
           })
-          .catch(err => {
-            this.uploadError = err.response;
-            this.currentStatus = STATUS_FAILED;
-          });
+          .catch(error => {
+            this.uploadError = error
+            this.currentStatus = STATUS_FAILED
+          })
       },
       filesChange(fieldName, fileList) {
-        const formData = new FormData();
+        const formData = new FormData()
 
-        if (!fileList.length) return;
+        if (!fileList.length) return
 
         Array
           .from(Array(fileList.length).keys())
           .map(x => {
-            formData.append(fieldName, fileList[x], fileList[x].name);
-          });
+            formData.append(fieldName, fileList[x], fileList[x].name)
+          })
 
-        this.save(formData);
+        this.save(formData)
       }
     },
     mounted() {
-      this.reset();
+      this.reset()
+    },
+    components: {
+      ProgressBar
     }
   }
 </script>
@@ -183,6 +177,9 @@
     width: 100%;
     height: 100%;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .box-close-icon {

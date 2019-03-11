@@ -21,7 +21,6 @@ export function getBase64Image(img) {
   const canvas = document.createElement('canvas')
   canvas.width = img.width
   canvas.height = img.height
-
   const ctx = canvas.getContext('2d')
   ctx.drawImage(img, 0, 0)
   const dataURL = img.src
@@ -30,6 +29,11 @@ export function getBase64Image(img) {
 
 export function getImage(file) {
   return new Promise((resolve, reject) => {
+    const format = file.type.split('/')[0]
+    if (format !== 'image') {
+      /* eslint-disable  prefer-promise-reject-errors */
+      reject('File type must be an Image format')
+    }
     const fReader = new FileReader()
     const img = document.createElement('img')
 

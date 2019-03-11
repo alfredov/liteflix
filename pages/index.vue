@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Modal />
     <Hero
       :smallImage="nowPlayingMovie.verticalImage.original"
       :mediumImage="nowPlayingMovie.horizontalImage.original"
@@ -19,6 +20,7 @@
   import { mapGetters } from 'vuex'
   import Carousel from '~/components/Carousel.vue'
   import Hero from '~/components/Hero.vue'
+  import Modal from '~/components/Modal'
 
   export default {
     async fetch({ store }) {
@@ -38,6 +40,7 @@
       })
     },
     components: {
+      Modal,
       Carousel,
       Hero
     },

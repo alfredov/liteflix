@@ -43,12 +43,11 @@
         </ul>
       </div>
     </div>
-    <Modal />
+    
   </div>
 </template>
 
 <script>
-  import Modal from '~/components/Modal'
   import HamburgerMenu from '~/components/HamburgerMenu'
 
   export default {
@@ -58,7 +57,6 @@
       }
     },
     components: {
-      Modal,
       HamburgerMenu
     }
   }
